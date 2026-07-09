@@ -7,6 +7,7 @@ This repository compares linear-regression forecasting models against the MACD 1
 - `linear_regression_backtest.py`: builds features, trains linear models, runs the Ridge strategy backtest, and exports visual reports.
 - `compare_ridge_vs_macd12269.py`: compares the best Ridge model against MACD 12/26/9 on the same test period.
 - `forecast_skill_comparison.py`: compares the next-day directional forecasting skill of Ridge and MACD, then exports README-ready charts.
+- `forward_forecast_next_period.py`: trains the latest Ridge model and projects the next VN-Index period against the current MACD regime.
 - `stress_test_volatile_years.py`: retrains Ridge year by year and stress tests the most volatile VN-Index years against MACD.
 - `READ.md`: detailed Vietnamese stress-test report with tables, charts, and interpretation.
 - `data.csv`: VN-Index OHLCV input data.
@@ -16,7 +17,31 @@ This repository compares linear-regression forecasting models against the MACD 1
 - Linear-regression report: `outputs_linear_regression_backtest/report.html`
 - Ridge vs MACD report: `outputs_model_vs_macd12269/ridge_vs_macd12269_report.html`
 - Forecast-skill charts and tables: `outputs_forecast_skill_comparison/`
+- Next-period VN-Index forecast: `outputs_forward_forecast/`
 - Stress-test report: `READ.md`
+
+## Next-Period VN-Index Forecast
+
+The latest available row in `data.csv` is `2026-07-01`, with VN-Index close at `1,865.37`. The projection below starts from the next business session and extends `30` business sessions.
+
+Important method note:
+
+- Ridge gives a numeric one-step next-day return forecast. The forward path compounds the latest one-step forecast because future OHLCV features are unknown.
+- MACD 12/26/9 is a directional regime model, not a direct price model. Its forward path compounds the historical average next-day return observed under the current MACD regime.
+- Current MACD regime is `up`, so the MACD path is steeper than the Ridge path.
+
+| Model | Daily Return Assumption | 30-Session Forecast Close | 30-Session Forecast Return | Direction / Regime |
+|---|---:|---:|---:|---|
+| Ridge Linear Regression | 0.007% | 1,869.36 | 0.21% | up, very mild |
+| MACD 12/26/9 | 0.176% | 1,966.51 | 5.42% | up regime |
+
+### Forecast Lines
+
+![VN-Index next-period forecast lines](outputs_forward_forecast/vnindex_next_period_forecast_lines.png)
+
+### Return Assumptions
+
+![Next-period return assumptions](outputs_forward_forecast/next_period_return_assumptions.png)
 
 ## Forecasting Skill Comparison
 
@@ -60,6 +85,7 @@ Use the `eda` conda environment:
 /home/namngyh/miniconda3/envs/eda/bin/python linear_regression_backtest.py
 /home/namngyh/miniconda3/envs/eda/bin/python compare_ridge_vs_macd12269.py
 /home/namngyh/miniconda3/envs/eda/bin/python forecast_skill_comparison.py
+/home/namngyh/miniconda3/envs/eda/bin/python forward_forecast_next_period.py
 /home/namngyh/miniconda3/envs/eda/bin/python stress_test_volatile_years.py
 ```
 
