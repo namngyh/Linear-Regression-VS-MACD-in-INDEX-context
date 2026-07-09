@@ -1,0 +1,4 @@
+model,rmse_log_return,mae_log_return,accuracy,balanced_accuracy,precision_up,recall_up,specificity_down,f1_up,mcc,hit_rate_on_predicted_up,hit_rate_on_predicted_down,mean_next_return_when_pred_up,mean_next_return_when_pred_down,return_spread_up_minus_down,forecast_up_frequency,score_corr_with_next_return,tp,tn,fp,fn
+Ridge Linear Regression,0.0123,0.0084,54.08%,54.21%,60.52%,53.14%,55.28%,56.59%,0.0836,60.52%,47.77%,0.17%,-0.04%,0.21%,49.46%,0.0808,279.0000,225.0000,182.0000,246.0000
+MACD 12/26/9,,,52.36%,51.86%,58.02%,55.81%,47.91%,56.89%,0.0370,58.02%,45.67%,0.10%,0.03%,0.07%,54.18%,-0.0133,293.0000,195.0000,212.0000,232.0000
+Ridge minus MACD,,,1.72%,2.35%,2.50%,-2.67%,7.37%,-0.30%,0.0465,2.50%,2.10%,0.07%,-0.07%,0.14%,-4.72%,0.0941,-14.0000,30.0000,-30.0000,14.0000
